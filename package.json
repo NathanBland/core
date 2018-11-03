@@ -11,7 +11,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "helmet": "^3.14.0"
+    "helmet": "^3.14.0",
+    "mongoose": "^5.3.9",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.5"
