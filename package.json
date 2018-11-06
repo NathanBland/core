@@ -10,9 +10,11 @@
   "author": "Nathan Bland",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "helmet": "^3.14.0",
     "mongoose": "^5.3.9",
+    "morgan": "^1.9.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
