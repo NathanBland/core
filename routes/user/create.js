@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../../models/User')
+const uuid = require('uuid/v4')
 
 router.post('/', (req, res, next) => {
   if (!req.body) {
