@@ -1,14 +1,18 @@
 const router = require('express').Router()
 const User = require('../../models/User')
 const uuid = require('uuid/v4')
+const validator = require('validator')
 
 router.post('/', (req, res, next) => {
   if (!req.body) {
     return res.status(400).json({msg: 'Missing required fields'})
   }
+
+  const username = validator.escape(req.body.username)
+
   const user = new User({
     _id: uuid(),
-    username: req.body.username
+    username
   })
   user.save()
   .then(savedUser => {

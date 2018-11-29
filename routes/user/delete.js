@@ -2,7 +2,11 @@ const router = require('express').Router()
 const User = require('../../models/User')
 
 router.delete('/:id', (req, res, next) => {
-  User.findByIdAndDelete(req.params.id)
+  const userId = validator.escape(req.params.id)
+  if (!validator.isUUID(userId)) {
+    return res.status(400).json({msg: 'Invalid ID'})
+  }
+  User.findByIdAndDelete(userId)
   .then(result => {
     console.log('delete result:', result)
     return res.status(204).json()

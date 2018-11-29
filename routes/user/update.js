@@ -1,8 +1,16 @@
 const router = require('express').Router()
 const User = require('../../models/User')
+const validator = require('validator')
 
 router.put('/:id', (req, res, next) => {
-  User.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+  const userId = validator.escape(req.params.id)
+  if (!validator.isUUID(userId)) {
+    return res.status(400).json({msg: 'Invalid ID'})
+  }
+  const escpQuery = Object.assign({}, ...Object.keys(req.body).map(obKey => {
+    return {[obKey]: validator.escape(req.body[obKey])}
+  }))
+  User.findOneAndUpdate({_id: userId}, escpQuery, {new: true})
   .then(updatedUser => {
     return res.status(200).json(updatedUser)
   })
