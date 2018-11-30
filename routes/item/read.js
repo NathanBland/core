@@ -1,13 +1,17 @@
 const router = require('express').Router()
 const Item = require('../../models/Item')
+const validator = require('validator')
 
 router.get('/', (req, res, next) => {
   const pageSize = 20
-  const currentPage = req.query.page > 0 ? req.query.page - 1 : 0
-  const filter = req.query.filter || ''
-  const filterOn = req.query.filterOn || ''
-  const sortBy = req.query.sortBy || 'createdAt'
-  const orderBy = req.query.orderBy || 'asc'
+  const escpQuery = Object.assign({}, ...Object.keys(req.query).map(obKey => {
+    return {[obKey]: validator.escape(req.query[obKey])}
+  }))
+  const currentPage = escpQuery.page > 0 ? escpQuery.page - 1 : 0
+  const filter = escpQuery.filter || ''
+  const filterOn = escpQuery.filterOn || ''
+  const sortBy = escpQuery.sortBy || 'createdAt'
+  const orderBy = escpQuery.orderBy || 'asc'
   const sortQuery = {
     [sortBy]: orderBy
   }
@@ -50,7 +54,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:id', (req, res, next) => {
-  Item.findOne({_id: req.params.id})
+  const itemId = validator.escape(req.params.id)
+  if (!validator.isUUID(itemId)) {
+    return res.status(400).json({msg: 'Invalid ID'})
+  }
+  Item.findOne({_id: itemId})
   .then(item => {
     return res.status(200).json(item)
   })
