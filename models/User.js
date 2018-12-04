@@ -10,4 +10,6 @@ const User = new mongoose.Schema({
   perferences: mongoose.SchemaTypes.Mixed
 }, {timestamps: true})
 
+User.plugin(require('passport-local-mongoose'))
+
 module.exports = mongoose.model('User', User)
