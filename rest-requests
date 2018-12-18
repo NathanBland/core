@@ -1,0 +1,88 @@
+GET http://127.0.0.1:3000/api/user?sortBy=uername&orderBy=asc&filter=SmithJimmy HTTP/1.1
+###
+GET http://127.0.0.1:3000/api/user/d75783fc-956e-4a7a-a61a-<script typebff10bcca7d8> HTTP/1.1
+###
+
+GET http://127.0.0.1:3000/api/item?sortBy=createdAt&orderBy=-1&filterOn=content&filter=Non autem HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3ZjY2NTE2LTM5ZDEtNDc5OS05YmE0LWE0YjJhM2U4MjA2MCIsInVzZXJuYW1lIjoiSmltbXlCb2IiLCJpYXQiOjE1NDM5MTIwMjYsImV4cCI6MTU0NDA4NDgyNn0.BgVHMBYq8dQTXsSlClUQZQgXApf6IfiDXaqkIkaKagY
+###
+
+GET http://127.0.0.1:3000/api/item/b38b2138-63f8-459d-b161-4bee5417d2fe HTTP/1.1
+###
+
+POST http://127.0.0.1:3000/api/auth/local/signup HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "JimmyBob",
+  "password": "abcde"
+}
+###
+
+
+POST http://127.0.0.1:3000/api/auth/local/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "JimmyBob",
+  "password": "abcde"
+}
+###
+
+
+POST http://127.0.0.1:3000/api/auth/local/logout HTTP/1.1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM3ZjY2NTE2LTM5ZDEtNDc5OS05YmE0LWE0YjJhM2U4MjA2MCIsInVzZXJuYW1lIjoiSmltbXlCb2IiLCJpYXQiOjE1NDM5MTEzMzMsImV4cCI6MTU0NDA4NDEzM30.ngUNebzZXntK2Mionv3NikhMVX9gu9AylpSuFMSqB-g
+
+###
+
+
+POST http://127.0.0.1:3000/api/user HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "Jimmy<script type=\"text/javascript\"/>alert('hello world');</script>"
+}
+###
+POST http://127.0.0.1:3000/api/item HTTP/1.1
+Content-Type: application/json
+
+{
+  "itemType": "Note",
+  "content": "A simple note" ,
+  "creator": "771c4862-2444-4793-b728-74736e3fa2c3"
+}
+
+###
+POST http://127.0.0.1:3000/api/item HTTP/1.1
+Content-Type: application/json
+
+{
+  "itemType": "text",
+  "content": "Just clarifying things get escaped! <script type=\"text/javascript\">alert('hello world');</script> ",
+  "creator": "ff15f544-ecd3-406c-8fc3-6e765228a202"
+}
+###
+PUT http://127.0.0.1:3000/api/user/ff15f544-ecd3-406c-8fc3-6e765228a202 HTTP/1.1
+Content-Type: application/json
+
+{
+  "_id": "ff15f544-ecd3-406c-8fc3-6e765228a202",
+  "username": "Kendrick.Mill",
+  "createdAt": "2018-11-13T02:11:21.177Z",
+  "updatedAt": "2018-11-13T02:11:21.177Z"
+}
+
+###
+PUT http://127.0.0.1:3000/api/item/b368d441-dff4-4407-af1a-81305b97105f HTTP/1.1
+Content-Type: application/json
+
+{
+  "_id": "b368d441-dff4-4407-af1a-81305b97105f",
+  "itemType": "text",
+  "content": "Just clarifying things get escaped!",
+  "creator": "ff15f544-ecd3-406c-8fc3-6e765228a202"
+}
+###
+DELETE http://127.0.0.1:3000/api/item/2f817499-dedb-4723-b37f-16837e4e40ff HTTP/1.1
+
