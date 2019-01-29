@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    depends_on: 
+      - core-api
+    environment:
+      DOMAINS: 'core.api.local -> http://core-api:3000'
+      STAGE: 'local'
+
   core-api:
     image: 'node:8.12.0-alpine'
     working_dir: '/home/core-api'
