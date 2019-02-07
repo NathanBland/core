@@ -18,7 +18,13 @@ router.use((req, res, next) => {
       isAuthenticated: false
     })
   }
+  if (req.user) {
+    return next()
+  }
   const userJwt = cookie.parse(req.headers.cookies || req.headers.cookie).Authorization
+  if (!userJwt) {
+    return res.status(401).json({msg: 'Unauthorized'})
+  }
   const decodedJwt = new Promise((resolve, reject) => {
     jwt.verify(userJwt, tokenSecret, {}, (err, decoded) => {
       if (err) {
